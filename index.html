@@ -268,8 +268,14 @@ function agQuick(q){document.getElementById('ag-inp').value=q;agSend();}
 
 
 // ── MANEJO DE API KEY VIA LOCALSTORAGE ───────────────────────
-function agGetKey(){return localStorage.getItem('uliv_ag_key')||'';}
-function agSetKey(k){localStorage.setItem('uliv_ag_key',k);}
+function agGetKey(){
+  try { return localStorage.getItem('uliv_ag_key')||''; }
+  catch(e){ return ''; }
+}
+function agSetKey(k){
+  try { localStorage.setItem('uliv_ag_key',k); }
+  catch(e){ console.warn('localStorage no disponible'); }
+}
 function agPromptKey(cb){
   var overlay=document.createElement('div');
   overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;display:flex;align-items:center;justify-content:center;';
@@ -329,7 +335,14 @@ function agSend(){
   });
 }
 
-window.addEventListener('DOMContentLoaded',function(){initE();initB();initA();agInit();});
+window.addEventListener('DOMContentLoaded',function(){
+  // Charts siempre primero, sin depender del agente
+  try { initE(); } catch(e){ console.error('initE error:',e); }
+  try { initB(); } catch(e){ console.error('initB error:',e); }
+  try { initA(); } catch(e){ console.error('initA error:',e); }
+  // Agente en bloque separado — si falla no afecta el reporte
+  try { agInit(); } catch(e){ console.error('agInit error:',e); }
+});
 
 </script>
 </body>
