@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Karla:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d0f14;--sur:#13161e;--sur2:#1a1e2a;--brd:#252a38;--acc:#e8c547;--blue:#5b8def;--red:#ef5b7a;--grn:#5befd8;--pur:#a78bfa;--org:#f59e0b;--txt:#e8eaf0;--mut:#6b7280;}
+:root{--bg:#F9F8F6;--sur:#FFFFFF;--sur2:#F4F3F0;--brd:#E8E8E8;--acc:#E91E8C;--blue:#1D4ED8;--red:#DC2626;--grn:#059669;--pur:#7C3AED;--org:#D97706;--teal:#0891B2;--txt:#0D0D0D;--txt2:#555555;--mut:#AAAAAA;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--txt);font-family:'Karla',sans-serif;font-weight:300;}
 .nav{background:var(--sur);border-bottom:1px solid var(--brd);padding:0 24px;display:flex;align-items:center;}
@@ -22,14 +22,14 @@ body{background:var(--bg);color:var(--txt);font-family:'Karla',sans-serif;font-w
 .fl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);}
 .fsel{background:var(--sur);border:1px solid var(--brd);color:var(--txt);font-family:'Karla',sans-serif;font-size:.85rem;padding:6px 26px 6px 9px;border-radius:7px;cursor:pointer;outline:none;min-width:180px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;}
 .fsel:focus{border-color:var(--acc);}
-.fbdg{font-family:'DM Mono',monospace;font-size:9px;background:rgba(232,197,71,.1);color:var(--acc);border:1px solid rgba(232,197,71,.2);padding:4px 9px;border-radius:20px;}
+.fbdg{font-family:'DM Mono',monospace;font-size:9px;background:rgba(233,30,140,.08);color:var(--acc);border:1px solid rgba(233,30,140,.25);padding:4px 9px;border-radius:20px;}
 .slbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .g1{margin-bottom:14px;}
 .kc{background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:16px;}
-.kc.acc{border-color:rgba(232,197,71,.3);}.kc.grn{border-color:rgba(91,239,216,.2);}.kc.pur{border-color:rgba(167,139,250,.2);}
+.kc.acc{border-color:rgba(233,30,140,.25);}.kc.grn{border-color:rgba(5,150,105,.2);}.kc.pur{border-color:rgba(124,58,237,.15);}
 .kl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:5px;}
 .kv{font-family:'DM Serif Display',serif;font-size:1.6rem;line-height:1;}
 .kd{font-size:.72rem;margin-top:4px;font-family:'DM Mono',monospace;}
@@ -57,7 +57,7 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
 /* Funnel */
 .funnel{display:flex;align-items:stretch;margin-bottom:18px;gap:0;}
 .fn-step{flex:1;background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:14px 16px;text-align:center;display:flex;flex-direction:column;justify-content:center;}
-.fn-step.fn-imp{border-color:rgba(232,197,71,.25);}.fn-step.fn-vp{border-color:rgba(91,239,216,.2);}.fn-step.fn-bk{border-color:rgba(167,139,250,.2);}
+.fn-step.fn-imp{border-color:rgba(233,30,140,.2);}.fn-step.fn-vp{border-color:rgba(8,145,178,.15);}.fn-step.fn-bk{border-color:rgba(124,58,237,.15);}
 .fn-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:block;margin-bottom:5px;}
 .fn-val{font-family:'DM Serif Display',serif;font-size:1.4rem;line-height:1;}
 .fn-delta{font-family:'DM Mono',monospace;font-size:.68rem;margin-top:3px;min-height:1rem;}
@@ -74,14 +74,39 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
 .badge-val{font-family:'DM Serif Display',serif;font-size:1.5rem;}
 .badge-sub{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-top:3px;}
 @media(max-width:860px){.g4,.g3{grid-template-columns:repeat(2,1fr);}.g2{grid-template-columns:1fr;}.funnel{flex-direction:column;}.badge-row{flex-wrap:wrap;}.fn-arrow{flex-direction:row;transform:none;gap:6px;justify-content:center;}}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 28px 20px;background:var(--sur);border-bottom:1px solid var(--brd);}
+.hdr-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:6px;}
+.hdr-title{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.75rem;line-height:1.1;color:var(--txt);}
+.hdr-title strong{font-style:normal;font-family:'Karla',sans-serif;font-size:1.75rem;font-weight:700;}
+.hdr-right{text-align:right;}
+.hdr-date{font-family:'DM Mono',monospace;font-size:1.15rem;font-weight:500;color:var(--txt);letter-spacing:.04em;}
+.hdr-sub{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin-top:4px;}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:8px 28px;background:var(--bg);border-bottom:1px solid var(--brd);}
+.status-dot{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mut);display:flex;align-items:center;gap:7px;}
+.status-dot::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);}
+.status-ts{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);}
+.ntab-num{font-size:8px;color:var(--acc);margin-right:2px;font-weight:500;}
 </style>
 </head>
 <body>
+<header class="hdr">
+  <div>
+    <div class="hdr-eyebrow">Visibilidad &middot; ULIV</div>
+    <h1 class="hdr-title"><strong>Reporte</strong> <em>de KPI OTA</em></h1>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-date" id="hdr-date">&mdash;</div>
+    <div class="hdr-sub">Actualizaci&oacute;n Semanal</div>
+  </div>
+</header>
+<div class="statusbar">
+  <div class="status-dot">An&aacute;lisis semanal de visibilidad...</div>
+  <div class="status-ts" id="status-ts">&mdash;</div>
+</div>
 <nav class="nav">
-  <div class="brand">ULIV &middot; OTA</div>
-  <div class="ntab on" id="t-exp" onclick="sw('exp')">Expedia</div>
-  <div class="ntab" id="t-bk"  onclick="sw('bk')">Booking</div>
-  <div class="ntab" id="t-air" onclick="sw('air')">Airbnb</div>
+  <div class="ntab on" id="t-exp" onclick="sw('exp')"><span class="ntab-num">01</span> Expedia</div>
+  <div class="ntab" id="t-bk"  onclick="sw('bk')"><span class="ntab-num">02</span> Booking</div>
+  <div class="ntab" id="t-air" onclick="sw('air')"><span class="ntab-num">03</span> Airbnb</div>
 </nav>
 
 <!-- ══ EXPEDIA ══════════════════════════════════════════════ -->
@@ -103,18 +128,18 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
   <div class="slbl">Tendencia semanal &middot; 2025 &rarr; 2026</div>
   <div class="g2">
     <div class="cc"><div class="ct">Impresiones &amp; Visitas de Perfil</div><div class="cs">IMP 7D (izq.) &middot; VP 7D (der.)</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#e8c547"></div>IMP 7D</div><div class="li"><div class="ld" style="background:#5befd8"></div>VP 7D</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#1D4ED8"></div>IMP 7D</div><div class="li"><div class="ld" style="background:#0891B2"></div>VP 7D</div></div>
       <canvas id="ec0" height="95"></canvas></div>
     <div class="cc"><div class="ct">Tasas de Conversión &mdash; PCBA &amp; PCAR</div><div class="cs">PCBA: B&uacute;squeda&rarr;Anuncio &middot; PCAR: Anuncio&rarr;Reserva</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#a78bfa"></div>PCBA</div><div class="li"><div class="ld" style="background:#f59e0b"></div>PCAR</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#7C3AED"></div>PCBA</div><div class="li"><div class="ld" style="background:#D97706"></div>PCAR</div></div>
       <canvas id="ec1" height="95"></canvas></div>
   </div>
   <div class="g2">
     <div class="cc"><div class="ct">Impresiones &mdash; Propio vs. Espacios Similares</div><div class="cs">IMP 7D &middot; IMP ES 7D &middot; 2025&rarr;2026</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#e8c547"></div>IMP 7D</div><div class="li"><div class="ld" style="background:#5b8def"></div>IMP ES</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#1D4ED8"></div>IMP 7D</div><div class="li"><div class="ld" style="background:#E91E8C"></div>IMP ES</div></div>
       <canvas id="ec2" height="80"></canvas></div>
     <div class="cc"><div class="ct">Visitas de Perfil &mdash; Propio vs. Espacios Similares</div><div class="cs">VP 7D &middot; VP ES 7D &middot; 2025&rarr;2026</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#5befd8"></div>VP 7D</div><div class="li"><div class="ld" style="background:#ef5b7a"></div>VP ES</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#0891B2"></div>VP 7D</div><div class="li"><div class="ld" style="background:#DC2626"></div>VP ES</div></div>
       <canvas id="ec3" height="80"></canvas></div>
   </div>
   <div class="g2">
@@ -152,18 +177,18 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
   <div class="slbl">Tendencia semanal &middot; 2025 &rarr; 2026</div>
   <div class="g2">
     <div class="cc"><div class="ct">Impresiones &amp; Visitas</div><div class="cs">Impresiones (izq.) &middot; Visitas (der.)</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#e8c547"></div>Impresiones</div><div class="li"><div class="ld" style="background:#5befd8"></div>Visitas</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#1D4ED8"></div>Impresiones</div><div class="li"><div class="ld" style="background:#0891B2"></div>Visitas</div></div>
       <canvas id="bc0" height="95"></canvas></div>
     <div class="cc"><div class="ct">Tasas de Conversión &mdash; PCBA &amp; PCAR</div><div class="cs">PCBA: B&uacute;squeda&rarr;Anuncio &middot; PCAR: Anuncio&rarr;Reserva</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#a78bfa"></div>PCBA</div><div class="li"><div class="ld" style="background:#f59e0b"></div>PCAR</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#7C3AED"></div>PCBA</div><div class="li"><div class="ld" style="background:#D97706"></div>PCAR</div></div>
       <canvas id="bc1" height="95"></canvas></div>
   </div>
   <div class="g2">
     <div class="cc"><div class="ct">Reservas &mdash; Resultado del Embudo (BK 7D)</div><div class="cs">Reservas semanales &middot; 2025&rarr;2026</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#5befd8"></div>BK 7D</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#059669"></div>BK 7D</div></div>
       <canvas id="bc2" height="80"></canvas></div>
     <div class="cc"><div class="ct">Score &mdash; Calidad del Anuncio</div><div class="cs">Promedio semanal &middot; escala 0&ndash;10</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#e8c547"></div>Score</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#E91E8C"></div>Score</div></div>
       <canvas id="bc3" height="80"></canvas></div>
   </div>
   <div class="g2">
@@ -210,18 +235,18 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
   <div class="slbl">Tendencia semanal &middot; 2025 &rarr; 2026</div>
   <div class="g2">
     <div class="cc"><div class="ct">Impresiones &amp; Visitas</div><div class="cs">Impresiones (izq.) &middot; Visitas (der.)</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#e8c547"></div>Impresiones</div><div class="li"><div class="ld" style="background:#5befd8"></div>Visitas</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#1D4ED8"></div>Impresiones</div><div class="li"><div class="ld" style="background:#0891B2"></div>Visitas</div></div>
       <canvas id="ac0" height="95"></canvas></div>
     <div class="cc"><div class="ct">Tasas de Conversión &mdash; PCBA &amp; PCAR</div><div class="cs">PCBA: B&uacute;squeda&rarr;Anuncio &middot; PCAR: Anuncio&rarr;Reserva</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#a78bfa"></div>PCBA</div><div class="li"><div class="ld" style="background:#f59e0b"></div>PCAR</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#7C3AED"></div>PCBA</div><div class="li"><div class="ld" style="background:#D97706"></div>PCAR</div></div>
       <canvas id="ac1" height="95"></canvas></div>
   </div>
   <div class="g2">
     <div class="cc"><div class="ct">Visitas &mdash; Propio vs. Espacios Similares</div><div class="cs">Visitas &middot; Visitas ES &middot; 2025&rarr;2026</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#5befd8"></div>Visitas</div><div class="li"><div class="ld" style="background:#ef5b7a"></div>Visitas ES</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#0891B2"></div>Visitas</div><div class="li"><div class="ld" style="background:#DC2626"></div>Visitas ES</div></div>
       <canvas id="ac2" height="80"></canvas></div>
     <div class="cc"><div class="ct">IGC &mdash; &Iacute;ndice de Gustos del Cliente</div><div class="cs">IGC propio vs. Espacios Similares &middot; 2025&rarr;2026</div>
-      <div class="leg"><div class="li"><div class="ld" style="background:#e8c547"></div>IGC</div><div class="li"><div class="ld" style="background:#5b8def"></div>IGC ES</div></div>
+      <div class="leg"><div class="li"><div class="ld" style="background:#D97706"></div>IGC</div><div class="li"><div class="ld" style="background:#6366F1"></div>IGC ES</div></div>
       <canvas id="ac3" height="80"></canvas></div>
   </div>
   <div class="g2">
@@ -260,11 +285,11 @@ function upFunnel(pre,s,ik,vk,bk,pk,rk){
   });
 }
 
-var TT={backgroundColor:'#1a1e2a',borderColor:'#252a38',borderWidth:1,titleColor:'#e8c547',bodyColor:'#c5cad8',titleFont:{family:'DM Mono',size:10},bodyFont:{family:'Karla',size:11}};
-var SX={ticks:{color:'#4b5563',font:{family:'DM Mono',size:8},maxRotation:45,maxTicksLimit:16},grid:{color:'#1e2330'}};
-var SY={ticks:{color:'#4b5563',font:{family:'DM Mono',size:9},callback:function(v){return v>=1e6?(v/1e6).toFixed(1)+'M':v>=1000?Math.round(v/1000)+'K':v;}},grid:{color:'#1e2330'}};
+var TT={backgroundColor:'#111111',borderColor:'#E8E8E8',borderWidth:1,titleColor:'#E91E8C',bodyColor:'#333333',titleFont:{family:'DM Mono',size:10},bodyFont:{family:'Karla',size:11}};
+var SX={ticks:{color:'#AAAAAA',font:{family:'DM Mono',size:8},maxRotation:45,maxTicksLimit:16},grid:{color:'#F0F0F0'}};
+var SY={ticks:{color:'#AAAAAA',font:{family:'DM Mono',size:9},callback:function(v){return v>=1e6?(v/1e6).toFixed(1)+'M':v>=1000?Math.round(v/1000)+'K':v;}},grid:{color:'#F0F0F0'}};
 var SYR=Object.assign({},SY,{position:'right',grid:{display:false}});
-var SYP={ticks:{color:'#4b5563',font:{family:'DM Mono',size:9},callback:function(v){return(v*100).toFixed(1)+'%';}},grid:{color:'#1e2330'}};
+var SYP={ticks:{color:'#AAAAAA',font:{family:'DM Mono',size:9},callback:function(v){return(v*100).toFixed(1)+'%';}},grid:{color:'#F0F0F0'}};
 function pR(n){return function(ctx){return ctx.dataIndex===n?5:1.5;};}
 function lds(label,data,color,n,fill,yid){
   return{label:label,data:data,borderColor:color,backgroundColor:color+'14',borderWidth:2,
@@ -287,10 +312,10 @@ function initE(){
   var sel=document.getElementById('e-sel');
   D.edE.forEach(function(e){var o=document.createElement('option');o.value=e;o.textContent=e;sel.appendChild(o);});
   var n=D.wE.length-1;
-  eC[0]=mkDual('ec0',D.wE,lds('IMP 7D',[],  '#e8c547',n,true,'y'),lds('VP 7D',[],  '#5befd8',n,false,'y2'));
-  eC[1]=mkLine('ec1',D.wE,[lds('PCBA',[],'#a78bfa',n,false),lds('PCAR',[],'#f59e0b',n,false)],SYP);
-  eC[2]=mkLine('ec2',D.wE,[lds('IMP 7D',[],'#e8c547',n,true),lds('IMP ES',[],'#5b8def',n,true)]);
-  eC[3]=mkLine('ec3',D.wE,[lds('VP 7D',[], '#5befd8',n,false),lds('VP ES',[],'#ef5b7a',n,true)]);
+  eC[0]=mkDual('ec0',D.wE,lds('IMP 7D',[],  '#1D4ED8',n,true,'y'),lds('VP 7D',[],  '#0891B2',n,false,'y2'));
+  eC[1]=mkLine('ec1',D.wE,[lds('PCBA',[],'#7C3AED',n,false),lds('PCAR',[],'#D97706',n,false)],SYP);
+  eC[2]=mkLine('ec2',D.wE,[lds('IMP 7D',[],'#1D4ED8',n,true),lds('IMP ES',[],'#E91E8C',n,true)]);
+  eC[3]=mkLine('ec3',D.wE,[lds('VP 7D',[], '#0891B2',n,false),lds('VP ES',[],'#DC2626',n,true)]);
   rE();
 }
 function rE(){
@@ -328,11 +353,11 @@ function initB(){
   var sel=document.getElementById('b-sel');
   D.edB.forEach(function(e){var o=document.createElement('option');o.value=e;o.textContent=e;sel.appendChild(o);});
   var n=D.wB.length-1;
-  bC[0]=mkDual('bc0',D.wB,lds('Impresiones',[],  '#e8c547',n,true,'y'),lds('Visitas',[],  '#5befd8',n,false,'y2'));
-  bC[1]=mkLine('bc1',D.wB,[lds('PCBA',[],'#a78bfa',n,false),lds('PCAR',[],'#f59e0b',n,false)],SYP);
-  bC[2]=mkLine('bc2',D.wB,[lds('BK 7D',[],'#5befd8',n,true)]);
-  bC[3]=mkLine('bc3',D.wB,[lds('Score',[],'#e8c547',n,false)],
-    {ticks:{color:'#4b5563',font:{family:'DM Mono',size:9},callback:function(v){return v.toFixed(1);}},grid:{color:'#1e2330'},suggestedMin:7,suggestedMax:10});
+  bC[0]=mkDual('bc0',D.wB,lds('Impresiones',[],  '#1D4ED8',n,true,'y'),lds('Visitas',[],  '#0891B2',n,false,'y2'));
+  bC[1]=mkLine('bc1',D.wB,[lds('PCBA',[],'#7C3AED',n,false),lds('PCAR',[],'#D97706',n,false)],SYP);
+  bC[2]=mkLine('bc2',D.wB,[lds('BK 7D',[],'#059669',n,true)]);
+  bC[3]=mkLine('bc3',D.wB,[lds('Score',[],'#E91E8C',n,false)],
+    {ticks:{color:'#AAAAAA',font:{family:'DM Mono',size:9},callback:function(v){return v.toFixed(1);}},grid:{color:'#F0F0F0'},suggestedMin:7,suggestedMax:10});
   rB();
 }
 function rB(){
@@ -375,10 +400,10 @@ function initA(){
   var sel=document.getElementById('a-sel');
   D.edA.forEach(function(e){var o=document.createElement('option');o.value=e;o.textContent=e;sel.appendChild(o);});
   var n=D.wA.length-1;
-  aC[0]=mkDual('ac0',D.wA,lds('Impresiones',[],  '#e8c547',n,true,'y'),lds('Visitas',[],  '#5befd8',n,false,'y2'));
-  aC[1]=mkLine('ac1',D.wA,[lds('PCBA',[],'#a78bfa',n,false),lds('PCAR',[],'#f59e0b',n,false)],SYP);
-  aC[2]=mkLine('ac2',D.wA,[lds('Visitas',[],'#5befd8',n,false),lds('Visitas ES',[],'#ef5b7a',n,true)]);
-  aC[3]=mkLine('ac3',D.wA,[lds('IGC',[],'#e8c547',n,false),lds('IGC ES',[],'#5b8def',n,true)]);
+  aC[0]=mkDual('ac0',D.wA,lds('Impresiones',[],  '#1D4ED8',n,true,'y'),lds('Visitas',[],  '#0891B2',n,false,'y2'));
+  aC[1]=mkLine('ac1',D.wA,[lds('PCBA',[],'#7C3AED',n,false),lds('PCAR',[],'#D97706',n,false)],SYP);
+  aC[2]=mkLine('ac2',D.wA,[lds('Visitas',[],'#0891B2',n,false),lds('Visitas ES',[],'#DC2626',n,true)]);
+  aC[3]=mkLine('ac3',D.wA,[lds('IGC',[],'#D97706',n,false),lds('IGC ES',[],'#6366F1',n,true)]);
   rA();
 }
 function rAE(){
@@ -435,7 +460,7 @@ function rA(){
   else if(s.cu_fav!=null&&s.cu_fav<0.5&&s.p8_fav!=null&&s.p8_fav<-5)alert='<p><strong>Punto a vigilar:</strong> Guest Favorite en '+((s.cu_fav*100).toFixed(0))+'% de unidades y bajando.</p>';
   document.getElementById('a-tint').innerHTML=alert;
 }
-window.addEventListener('DOMContentLoaded',function(){initE();initB();initA();});
+window.addEventListener('DOMContentLoaded',function(){var now=new Date();var ds=now.toISOString().slice(0,10);var ts=now.toTimeString().slice(0,5);var hd=document.getElementById('hdr-date');var st=document.getElementById('status-ts');if(hd)hd.textContent=ds;if(st)st.textContent='GENERADO · '+ds+' '+ts;initE();initB();initA();});
 
 </script>
 </body>
