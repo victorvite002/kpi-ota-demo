@@ -124,6 +124,7 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
 .vp-spark{flex:1;min-width:180px;}
 .vp-diag{background:rgba(233,30,140,.05);border-left:3px solid var(--acc);padding:10px 14px;border-radius:0 6px 6px 0;font-size:.83rem;line-height:1.6;}
 .vis-fbtn{background:var(--sur);border:1px solid var(--brd);color:var(--mut);padding:5px 12px;border-radius:6px;cursor:pointer;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;transition:all .15s;}
+.vis-prop-sel{font-family:'Karla',sans-serif;font-size:.82rem;padding:5px 10px;border:1px solid var(--brd);border-radius:6px;background:var(--sur);color:var(--txt);cursor:pointer;min-width:200px;}
 .vis-fbtn:hover{border-color:var(--acc);color:var(--txt);}
 .vis-fbtn.on{background:var(--acc);border-color:var(--acc);color:#fff;}
 .vis-fbtn.vis-ao{border-color:var(--org);color:var(--org);}
@@ -393,7 +394,7 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
     <p>Ca&iacute;da de Impresiones por Unidad vs hace 4 semanas &middot; Umbrales segmentados por volumen</p>
   </div>
   <div class="al-summary" id="vis-summary"></div>
-  <div class="fbar" style="margin-bottom:20px">
+  <div class="fbar" style="margin-bottom:8px">
     <span class="fl">OTA</span>
     <div style="display:flex;gap:6px">
       <button class="vis-fbtn on" id="vis-f-all" onclick="visFilter('all',this)">Todas</button>
@@ -402,6 +403,12 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
       <button class="vis-fbtn" id="vis-f-air" onclick="visFilter('air',this)">Airbnb</button>
     </div>
     <button class="vis-fbtn vis-ao" id="vis-ao" onclick="visToggleAO()" style="margin-left:auto">Solo alertas</button>
+  </div>
+  <div class="fbar" style="margin-bottom:20px">
+    <span class="fl">Propiedad</span>
+    <select id="vis-prop-sel" class="vis-prop-sel" onchange="visPropChange(this)">
+      <option value="all">Todas las propiedades</option>
+    </select>
   </div>
   <div id="vis-sec-exp">
     <div class="slbl"><span class="ntab-num">01</span> Expedia &middot; Impresiones/Unidad</div>
@@ -698,7 +705,11 @@ function initAlerts(){renderAlerts();}
 // === VISIBILIDAD I/U ===
 var visOtaFilter='all';
 var visShowOnlyAlerts=false;
+var visPropFilter='all';
 var _VIS={};
+var _lstToBld={};
+function _buildLstMap(){if(!D.cbe)return;for(var b in D.cbe){if(b==='_')continue;(D.cbe[b]||[]).forEach(function(c){_lstToBld[c]=b;});}}
+function _visBldg(r,ota){return ota==='air'?(_lstToBld[r.ed]||r.ed):r.ed;}
 function fIU(v){return v==null?'—':v.toFixed(1);}
 function fVS(v){if(v==null)return '—';var cls=v>70?'vs-hi':(v>=40?'vs-md':'vs-lo');return '<span class="'+cls+'">'+v.toFixed(1)+'</span>';}
 function fSeg(s){return '<span class="seg-bdg">'+(s||'—')+'</span>';}
@@ -746,14 +757,17 @@ function openVisPanel(tr){
   var panel=document.getElementById('vis-panel');panel.classList.add('open');panel.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function renderVisAlertTable(tbodyId,rows,ota){
-  var filtered=visShowOnlyAlerts?rows.filter(function(r){return r.lv!=='ok';}):rows;
+  var filtered=rows.filter(function(r){
+    return (visPropFilter==='all'||_visBldg(r,ota)===visPropFilter)&&(!visShowOnlyAlerts||r.lv!=='ok');
+  });
   document.getElementById(tbodyId).innerHTML=filtered.map(function(r){
     var key=ota+'|'+r.ed;_VIS[key]=r;
     return '<tr class="'+(r.lv==='critica'?'rh':'')+'" style="cursor:pointer" data-vk="'+key+'" onclick="openVisPanel(this)"><td><strong>'+r.ed+'</strong></td><td>'+fSeg(r.seg)+'</td><td>'+r.nu+'</td><td>'+fVS(r.vs)+'</td><td>'+fIU(r.cu)+'</td><td>'+fIU(r.pv)+'</td><td>'+fMoM(r.mm)+'</td><td>'+fIU(r.av)+'</td><td>'+r.nw+'</td><td>'+alBdg(r.lv)+'</td></tr>';
   }).join('');
 }
 function renderVisSummary(){
-  var data=visOtaFilter==='exp'?D.alVisE:(visOtaFilter==='bk'?D.alVisB:(visOtaFilter==='air'?D.alVisA:D.alVisE.concat(D.alVisB,D.alVisA)));
+  function _fp(rows,ota){return rows.filter(function(r){return visPropFilter==='all'||_visBldg(r,ota)===visPropFilter;});}
+  var data=visOtaFilter==='exp'?_fp(D.alVisE,'exp'):(visOtaFilter==='bk'?_fp(D.alVisB,'bk'):(visOtaFilter==='air'?_fp(D.alVisA,'air'):_fp(D.alVisE,'exp').concat(_fp(D.alVisB,'bk'),_fp(D.alVisA,'air'))));
   var counts={critica:0,alta:0,media:0,ok:0};data.forEach(function(r){counts[r.lv]=(counts[r.lv]||0)+1;});
   var colors={critica:'var(--red)',alta:'var(--org)',media:'#CA8A04',ok:'var(--grn)'};
   var labels={critica:'Cr&#237;ticas',alta:'Altas',media:'Medias',ok:'OK'};
@@ -774,7 +788,19 @@ function renderVisAlerts(){
   if(showAir)renderVisAlertTable('vis-body-air',D.alVisA,'air');
   renderVisSummary();
 }
-function initVis(){renderVisAlerts();}
+function visPropChange(sel){visPropFilter=sel.value;renderVisAlerts();}
+function initVis(){
+  _buildLstMap();
+  var blds=[];
+  var addB=function(r,ota){var b=_visBldg(r,ota);if(blds.indexOf(b)===-1)blds.push(b);};
+  D.alVisE.forEach(function(r){addB(r,'exp');});
+  D.alVisB.forEach(function(r){addB(r,'bk');});
+  D.alVisA.forEach(function(r){addB(r,'air');});
+  blds.sort();
+  var sel=document.getElementById('vis-prop-sel');
+  if(sel)sel.innerHTML='<option value="all">Todas las propiedades</option>'+blds.map(function(b){return '<option value="'+b+'">'+b+'</option>';}).join('');
+  renderVisAlerts();
+}
 
 window.addEventListener('DOMContentLoaded',function(){var now=new Date();var ds=now.toISOString().slice(0,10);var ts=now.toTimeString().slice(0,5);var hd=document.getElementById('hdr-date');var st=document.getElementById('status-ts');if(hd)hd.textContent=ds;if(st)st.textContent='GENERADO · '+ds+' '+ts;initE();initB();initA();initAlerts();initVis();});
 
