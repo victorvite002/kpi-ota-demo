@@ -443,7 +443,7 @@ hr.dv{border:none;border-top:1px solid var(--brd);margin:14px 0;}
       <strong>I/U:</strong> Impresiones &divide; unidades f&iacute;sicas activas. Booking/Expedia: nivel edificio (<em>listings_resumen.csv</em>). Airbnb: nivel listing individual (<em>airbnb_listing_map.csv</em>).<br>
       <strong>&#916;MoM:</strong> prom. &uacute;lt. 2 sem. vs. 4.&#170; y 5.&#170; sem. m&aacute;s recientes.<br>
       <strong>Segmento:</strong> basado en promedio de impresiones brutas del edificio/listing en la ventana de an&aacute;lisis.<br>
-      <strong>VS (Visibility Score):</strong> 50% Volumen I/U + 30% Tendencia MoM + 20% Percentil I/U dentro de la OTA. Rango 0&ndash;100.<br>
+      <strong>VS (Visibility Score):</strong> 60% Rank + 40% Drift. <em>Rank</em> = percentil de I/U suavizado (prom. &uacute;lt. 3 sem.) dentro de la OTA &mdash; 0 peor, 100 mejor. <em>Drift</em> = posici&oacute;n del edificio vs. su propia media hist&oacute;rica 8 sem. (50 = neutro, &gt;50 mejorando, &lt;50 deteriorando). Rango 0&ndash;100.<br>
       <strong>Unidades sin match:</strong> si el listing no tiene entrada en <em>airbnb_listing_map.csv</em>, se asume 1 unidad (fallback).<br><br>
       <div style="display:flex;gap:24px;flex-wrap:wrap">
         <div>
